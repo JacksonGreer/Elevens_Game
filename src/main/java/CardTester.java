@@ -14,9 +14,9 @@ public class CardTester {
 		Card d = new Card("Jack", "Spades", 10);
 
 		System.out.println("The ranks and suits of the cards are as follows...");
-		System.out.println("Card a: " + a.getRank() + " of " + a.getSuit());
-		System.out.println("Card b: " + b.getRank() + " of " + b.getSuit());
-		System.out.println("Card c: " + c.getRank() + " of " + c.getSuit());
+		System.out.println("Card a: " + a.rank() + " of " + a.suit());
+		System.out.println("Card b: " + b.rank() + " of " + b.suit());
+		System.out.println("Card c: " + c.rank() + " of " + c.suit());
 
 		System.out.println("Does Card A equal Card B? " + a.equals(b));
 		System.out.println("Does Card B equal Card D? " + b.equals(d));

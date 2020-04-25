@@ -30,17 +30,13 @@ public class Deck {
 	 * @param values is an array containing all of the card point values.
 	 */
 	public Deck(String[] ranks, String[] suits, int[] values) {
-		cards = new ArrayList<>();
-		for (int i = 0; i < ranks.length; i++) {
-			String rank = ranks[i];
-			int pointValue = values[i];
-			for (String suit : suits) {
-				Card aCard = new Card(rank, suit, pointValue);
-				cards.add(aCard);
+		cards = new ArrayList<Card>();
+		for (int j = 0; j < ranks.length; j++) {
+			for (String suitString : suits) {
+				cards.add(new Card(ranks[j], suitString, values[j]));
 			}
 		}
-		this.size = cards.size();
-		this.shuffle();
+		shuffle();
 	}
 
 
@@ -49,7 +45,7 @@ public class Deck {
 	 * @return true if this deck is empty, false otherwise.
 	 */
 	public boolean isEmpty() {
-		return cards.size() == 0;
+		return size == 0;
 	}
 
 	/**
@@ -57,7 +53,7 @@ public class Deck {
 	 * @return the number of undealt cards in this deck.
 	 */
 	public int size() {
-		return cards.size();
+		return size;
 	}
 
 	/**
@@ -65,7 +61,20 @@ public class Deck {
 	 * and reset the size to represent the entire deck.
 	 */
 	public void shuffle() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+		List<Card> shuffled = new ArrayList<>(cards);
+
+		for (int k = cards.size() - 1; k >= 0; k--){
+			int r = (int)(Math.random() * cards.size()); // range of values r could == 1..values.length
+			// get references to the specific cards
+			Card firstCard = shuffled.get(r);
+			Card secondCard = shuffled.get(k);
+			// now switch cards
+			shuffled.set(k, firstCard);
+			shuffled.set(r, secondCard);
+		}
+
+		cards = shuffled;
+		size = cards.size(); // reset size to be the full size of the deck
 	}
 
 	/**
@@ -74,12 +83,12 @@ public class Deck {
 	 *         previously dealt.
 	 */
 	public Card deal() {
-		if (cards.size() == 0) {
+		if (isEmpty()) {
 			return null;
 		}
-		// decrement the size of the deck by 1 and return the card at that position
-		int position = size--;
-		return cards.get(position);
+		size--;
+		Card c = cards.get(size);
+		return c;
 	}
 
 	/**

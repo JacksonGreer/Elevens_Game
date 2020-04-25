@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 /**
  * Card.java
  *
@@ -34,9 +32,10 @@ public class Card {
 	 *                  containing the point value of the card
 	 */
 	public Card(String cardRank, String cardSuit, int cardPointValue) {
-		this.rank = cardRank;
-		this.suit = cardSuit;
-		this.pointValue = cardPointValue;
+		//initializes a new Card with the given rank, suit, and point value
+		rank = cardRank;
+		suit = cardSuit;
+		pointValue = cardPointValue;
 	}
 
 
@@ -44,39 +43,24 @@ public class Card {
 	 * Accesses this <code>Card's</code> suit.
 	 * @return this <code>Card's</code> suit.
 	 */
-	public String getSuit() {
-		return this.suit;
-   }
+	public String suit() {
+		return suit;
+	}
 
 	/**
 	 * Accesses this <code>Card's</code> rank.
 	 * @return this <code>Card's</code> rank.
 	 */
-	public String getRank() {
-		return this.rank;
+	public String rank() {
+		return rank;
 	}
 
    /**
 	 * Accesses this <code>Card's</code> point value.
 	 * @return this <code>Card's</code> point value.
 	 */
-	public int getPointValue() {
-		return this.pointValue;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(suit, rank, pointValue);
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Card card = (Card) o;
-		return pointValue == card.pointValue &&
-				suit.equals(card.suit) &&
-				rank.equals(card.rank);
+	public int pointValue() {
+		return pointValue;
 	}
 
 	/** Compare this card with the argument.
@@ -86,7 +70,9 @@ public class Card {
 	 *         false otherwise.
 	 */
 	public boolean matches(Card otherCard) {
-		return this.equals(otherCard);
+		return otherCard.suit().equals(this.suit())
+			&& otherCard.rank().equals(this.rank())
+			&& otherCard.pointValue() == this.pointValue();
 	}
 
 	/**
@@ -101,6 +87,6 @@ public class Card {
 	 */
 	@Override
 	public String toString() {
-		return rank + " of " + suit + "(point value = " + pointValue + ")";
+		return rank + " of " + suit + " (point value = " + pointValue + ")";
 	}
 }
