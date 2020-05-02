@@ -36,6 +36,7 @@ public class Deck {
 				cards.add(new Card(ranks[j], suitString, values[j]));
 			}
 		}
+		size = cards.size();
 		shuffle();
 	}
 
@@ -61,20 +62,15 @@ public class Deck {
 	 * and reset the size to represent the entire deck.
 	 */
 	public void shuffle() {
-		List<Card> shuffled = new ArrayList<>(cards);
-
-		for (int k = cards.size() - 1; k >= 0; k--){
-			int r = (int)(Math.random() * cards.size()); // range of values r could == 1..values.length
-			// get references to the specific cards
-			Card firstCard = shuffled.get(r);
-			Card secondCard = shuffled.get(k);
-			// now switch cards
-			shuffled.set(k, firstCard);
-			shuffled.set(r, secondCard);
+		for (int k = cards.size() - 1; k > 0; k--) {
+			int howMany = k + 1;
+			int start = 0;
+			int randPos = (int) (Math.random() * howMany) + start;
+			Card temp = cards.get(k);
+			cards.set(k, cards.get(randPos));
+			cards.set(randPos, temp);
 		}
-
-		cards = shuffled;
-		size = cards.size(); // reset size to be the full size of the deck
+		size = cards.size();
 	}
 
 	/**
